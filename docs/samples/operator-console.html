@@ -2594,7 +2594,7 @@ img,svg { max-width: 100%; height: auto; }
     </table>
   </section>
   <section class="card">
-    <h2>Where does the approver&amp;rsquo;s id actually land?</h2>
+    <h2>Where does the approver’s id actually land?</h2>
     <p class="muted">Measured, not asserted: for each approval this run granted, the page reads the record back out of the store and reports whether the human approver&rsquo;s id survived. <span class="critical">Only 3 of 5 approvals retain the approver in the SSoT.</span> The actor hands <code>:approved-by</code> to the store on the record&rsquo;s <code>:payload</code>, but <code>store/commit-record!</code> only persists the payload for the effects that store a payload; the two actuation effects rebuild their record from the registry and keep no approver, and the <code>:committed</code> ledger fact carries none either. So for a dispatch or a certificate this console can prove that a human approved &mdash; the run paused at <code>:request-approval</code> and only moved on when resumed &mdash; but it cannot name them from the SSoT. Stated here rather than omitted, so a reader can tell &lsquo;not retained&rsquo; apart from &lsquo;nobody approved&rsquo;. Fixing that is a change to the actor&rsquo;s SSoT semantics, not to this demo.</p>
     <table>
       <thead><tr><th>Op</th><th>Unit</th><th>Effect</th><th>Approver at run time</th><th>In the actor's record</th><th>In the store</th><th>In the ledger</th></tr></thead>

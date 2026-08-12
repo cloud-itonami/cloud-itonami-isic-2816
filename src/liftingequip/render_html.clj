@@ -514,7 +514,10 @@
               (table ["ISO3" "Jurisdiction" "Spec-basis" "Owner authority" "Legal basis" "Required evidence items"]
                      (map #(jurisdiction-row % (contains? covered %)) jurisdictions)))
 
-     (section "Where does the approver&rsquo;s id actually land?"
+     ;; NB: section titles go through `esc`, so this heading carries a literal
+     ;; U+2019 rather than an `&rsquo;` entity -- the entity would be
+     ;; double-escaped and render as the seven characters `&rsquo;`.
+     (section "Where does the approver’s id actually land?"
               (str "Measured, not asserted: for each approval this run granted, the page reads the record back "
                    "out of the store and reports whether the human approver&rsquo;s id survived. "
                    (if (= retained (count attribution))
