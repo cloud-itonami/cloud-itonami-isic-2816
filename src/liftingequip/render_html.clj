@@ -40,7 +40,7 @@
   console showing a governor that never said no would be a lie about
   this actor even if every byte of it were generated."
   (:require [jp-go-dds.skin]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [langgraph.graph :as g]
             [liftingequip.export :as export]
             [liftingequip.facts :as facts]
