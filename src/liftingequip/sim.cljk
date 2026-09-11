@@ -1,5 +1,5 @@
 (ns liftingequip.sim
-  "Demo driver -- `clojure -M:dev:run`. Walks a clean unit through
+  "Demo driver -- `kbb -M:dev:run`. Walks a clean unit through
   intake -> design-rules requirements verification -> proof-load-
   test screening -> unit-dispatch proposal (always escalates) ->
   human approval -> commit, then through load-test-certificate
