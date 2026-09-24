@@ -1,5 +1,5 @@
 (ns liftingequip.registry-test
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.test :refer [deftest is]]
             [liftingequip.registry :as r]))
 
 ;; ----------------------------- unit-test-load-out-of-range? -----------------------------
