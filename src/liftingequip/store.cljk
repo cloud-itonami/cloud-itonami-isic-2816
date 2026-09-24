@@ -34,7 +34,7 @@
   lifting-equipment manufacturer needs, and the evidence a
   manufacturer needs if a dispatch or load-test-certificate decision
   is later disputed."
-  (:require #?(:clj  [clojure.edn :as edn]
+  (:require #?(:clj  [kotoba.lang.edn :as edn]
                :cljs [cljs.reader :as edn])
             [liftingequip.registry :as registry]
             [langchain.db :as d]))
