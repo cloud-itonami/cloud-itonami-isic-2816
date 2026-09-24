@@ -1,0 +1,34 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:dev:physics` runs it.
+;;
+;; README "Robotics premise": robots do final assembly, fit-up and
+;; proof-load-test rig operation for cranes, hoists and forklifts under an
+;; actor and an independent Lifting Equipment Governor, which never issues a
+;; load-test certificate itself. The work measured here: the laden ramp run
+;; of a finished forklift (longitudinal tip-over margin while braking on a
+;; grade), and the proof-load pull on a hoist chain specimen.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isic-2816"
+ :cases
+ [{:id :laden-forklift-ramp-run
+   :kind :transport
+   :procedure "a finished counterbalance forklift carries its 1.5 t test load down the plant's test ramp and brakes; the solver treats the wheelbase as the support length (a forklift's real load-side tipping line is its front axle)"
+   :params {:mass-kg 3000.0 :payload-kg 1500.0 :distance-m 30.0 :v-max-mps 3.0 :a-max-mps2 0.8
+            :brake-decel-mps2 1.5 :drive-force-n 12000.0 :crr 0.02
+            :cog-height-m 0.60 :support-half-length-m 0.70 :payload-cog-height-m 0.90
+            :max-time-s 600.0}
+   :sweep {:param :slope-deg :values [0.0 3.0 6.0 9.0 12.0]}
+   :quantity :min-tipover-margin
+   :limit {:min 0.7 :basis "estimate: margin kept for the simplified symmetric support model; the product's own stability is proven on the tilt table (ISO 22915 series), not by this number"}
+   :boundary {:lo 0.0 :hi 20.0}}
+  {:id :hoist-chain-proof-pull
+   :kind :material
+   :procedure "proof-load pull on a hoist-chain specimen: two 10 mm link legs (157 mm2) loaded to the test force; the link must not take a permanent set"
+   :params {:length-m 0.10 :area-m2 1.57e-4 :youngs-modulus-pa 200.0e9 :yield-stress-pa 640.0e6
+            :hardening-pa 2.0e9 :density-kg-m3 7850.0}
+   :sweep {:param :max-force-n :values [40000.0 60000.0 80000.0 100000.0 120000.0]}
+   :quantity :final-strain
+   :limit {:max 0.004 :basis "estimate: 0.004 total strain = the 0.0032 elastic strain at the 640 MPa yield of an alloy chain steel plus 0.08 % tolerated set; the yield stress is also an estimate"}
+   :boundary {:lo 20000.0 :hi 150000.0}}]}
